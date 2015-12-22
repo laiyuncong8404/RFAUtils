@@ -1,0 +1,13 @@
+*** Settings ***
+Resource          公共基础关键字.txt
+Resource          tv_基础关键字.txt
+
+*** Keywords ***
+抓取日志1
+    [Arguments]    ${logname}    ${log_time}=15
+    Run Keyword If Test Failed    收集日志    ${logname}    ${log_time}
+
+获取当前页面的xml1
+    [Arguments]    ${xml_name}    # 生成的xml文件的文件名称
+    ${source}=    获取当前页面代码
+    write to file    ${source}    ${xml_path}    ${xml_name}

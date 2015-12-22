@@ -1,0 +1,51 @@
+*** Settings ***
+Library           ../utils/AdbLib.py
+Library           AppiumLibrary
+Resource          config.txt
+Resource          公共基础关键字.txt
+
+*** Keywords ***
+获取手机设备名称
+    杀掉adb进程
+    ${devicename}    get all connected devices
+    log    ${devicename}
+    ${phone_devicename}    get from list    ${devicename}    0
+    set global variable    ${phone_device_name}    ${phone_devicename}
+    log    ${phone_device_name}
+
+打开手机应用
+    [Arguments]    ${appium_url}    ${pkg_name}    ${launcher_activityname}    ${device_name}    ${udid_value}    ${platform_name}=Android
+    ...    ${unicodekeyboard_value}=${False}    ${resetKeyboard_value}=${False}    ${nosign_value}=${True}    ${waitactivyty_name}=${None}    ${stopapp_onreset_value}=${True}    ${app_path}=${None}
+    ...    ${autolaunch_value}=${True}
+    [Documentation]    关键字 \ \ \ \ \ \ \ \ \ \ \ \ \ \ 描述
+    ...    deviceName 使用的手机类型或模拟器类型
+    ...    platformVersion 手机操作系统版本
+    ...    platformName 你要测试的手机操作系统
+    ...    appActivity 你要从你的应用包中启动的 Android Activity 名称。
+    ...    appPackage 你想运行的Android应用的包名
+    ...    appWaitActivity 你想要等待启动的 Android Activity 名称
+    ...    udid \ \ \ \ \ \ \ \ \ \ \ \ \ \ 连接的物理设备的唯一设备标识
+    ...
+    ...    app \ \ \ \ \ \ \ \ \ \ \ \ \ .ipa or .apk文件所在的本地绝对路径或者远程路径,也可以是一个包括两者之一的.zip。 Appium会先尝试安装路径对应的应用在适当的真机或模拟器上。针对Android系统，如果你指定app-package和app-activity(具体见下面)的话，那么就可以不指定app。 会与 browserName 冲突.比如/abs/path/to/my.apk或http://myapp.com/app.ipa
+    ...
+    ...    newCommandTimeout 设置命令超时时间，单位：秒。达到超时时间仍未接收到新的命令时 Appium 会假设客户端退出然后自动结束会话。默认为60s
+    ...
+    ...    stopAppOnReset 在使用 adb 启动应用前停止被测应用的进程 ( process ) 。如果被测应用是被另一个应用创建的，当这个参数被设定为 false 时，允许另一个应用的进程在使用 adb 启动被测应用时继续存活。默认值 true
+    ...
+    ...    unicodeKeyboard 使用 Unicode 输入法。默认值false
+    ...
+    ...    resetKeyboard 在设定了 unicodeKeyboard 关键字的 Unicode 测试结束后，重置输入法到原有状态。如果单独使用，将会被忽略。默认值 false
+    ...
+    ...    noSign 跳过检查和对应用进行 debug 签名的步骤。只能在使用 UiAutomator 时使用，使用 selendroid 是不行。默认值 false
+    ...
+    ...    autoLaunch Appium是否需要自动安装和启动应用。默认值true
+    open application    ${appium_url}    platformName=${plat_name}    platformVersion=${platform_name}    deviceName=${device_name}    appPackage=${pkgname}    appActivity=${launcher_activityname}
+    ...    unicodeKeyboard=${unicodekeyboard_value}    resetKeyboard=${resetKeyboard_value}    udid=${udid_value}    noSign=${nosign_value}    appWaitActivity=${waitactivyty_name}    stopAppOnReset=${stopapp_onreset_value}
+    ...    app=${app_path}    autoLaunch=${autolaunch_value}
+
+抓取手机端日志
+    [Arguments]    ${logname}    ${log_time}=15
+    Run Keyword If Test Failed    收集日志    ${logname}    ${phone_device_name}    ${log_time}
+
+清理手机端日志
+    清理日志    ${phone_device_name}

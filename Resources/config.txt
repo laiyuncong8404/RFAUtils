@@ -1,0 +1,13 @@
+﻿*** Variables ***
+${appium_status_url}    http://localhost:4723/wd/hub/status    # 查询AppiumServer运行的状态
+${log_path}       C:\\RFAUtils\\AutoTest\\Log\\    # 该目录为保存被测设备运行日志的目录
+${com_port}       COM4    # 对应串口的串口号
+${baudrate}       115200    # 该参数对应被测电视设备串口的波特率
+${xml_path}       C:\\RFAUtils\\AutoTest\\Xml\\    # 保存xml文件的路径
+${appium_base_url}    http://localhost:4723/wd/hub    # appium server的http地址
+${plat_name}      Android
+${plat_version}    4.4.4
+${tv_ip_address}    ${EMPTY}
+${appium_run_log_path}    C:\\RFAUtils\\AutoTest\\Log\\appium_run_log\\    # 该目录用于保存Appium Server的运行日志，以便出错时进行日志分析
+${picSpath}      C:\\RFAUtils\\AutoTest\\Pic\\Spath\\    # 该目录为保存图片的原始目录，一般作为对比图片的原始目录
+${picDpath}       C:\\RFAUtils\\AutoTest\\Pic\\Dpath\\    # 该目录为保存截图的目录，
