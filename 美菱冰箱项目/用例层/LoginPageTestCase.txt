@@ -1,0 +1,75 @@
+*** Settings ***
+Suite Setup       AppiumServer_start    AppiumServer.log
+Suite Teardown    AppiumServer_stop
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../../utils/PictureLib.py
+Library           ../../utils/NetCheck.py
+Library           ../../utils/LogLib.py
+Library           ../../utils/ElementLib.py
+Library           ../../utils/AppiumServerLib.py
+Library           ../../utils/AdbLib.py
+Library           ../../utils/SerialLib.py
+Resource          ../../Resources/phone_基础关键字.txt
+Resource          ../../Resources/tv_基础关键字.txt
+Resource          ../../Resources/公共基础关键字.txt
+Resource          ../流程层/loginPageMethod.txt
+Resource          ../元素层/loginPageElement.txt
+Resource          ../数据层/testData.txt
+
+*** Test Cases ***
+Test_initialize
+    [Setup]
+    #AppiumServer_start    AppiumServer.log
+    检查配置文件目录是否存在
+    检测设备是否在线
+    获取手机设备名称    #return ${device_name}
+    获取手机系统名称    #return ${platform_name}
+    获取手机系统版本号    #return ${platform_version}
+    openApp    ${CURDIR}/../IceBoxControl_Marvell-MW300_20150921.apk
+    获取appPackageName    #return ${appPackageName}
+    获取appActivityName    #return ${appActivityName}
+    [Teardown]
+
+check the login page elements
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_username
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_password
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+    Page Should Contain Element    id=com.iceboxcontrol:id/modelselect
+    Page Should Contain Element    id=com.iceboxcontrol:id/auto_login
+    Page Should Contain Text    自动登录
+    Page Should Contain Element    id=com.iceboxcontrol:id/remember_psw
+    Page Should Contain Text    记住密码
+    Page Should Contain Text    忘记密码
+    Page Should Contain Text    注册帐号
+    Page Should Contain Text    配置向导
+
+can not login as AP mode
+    select_APmode
+    click_loginbtn
+    Element Attribute Should Match    id=android:id/text1    text    本地模式
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+
+confirm the work mode is STA
+    select_STAmode
+    click_loginbtn
+    Element Attribute Should Match    id=android:id/text1    text    远程模式
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+
+login with empty username and empty password should be fail
+    login
+    Sleep    5s
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+
+login with empty username and no-empty password should be fail
+    login    \    ${right_passWord}
+    Sleep    5s
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+
+login with no-empty username and empty password should be fail
+    login    ${right_userName}
+    Sleep    5s
+    Page Should Contain Element    id=com.iceboxcontrol:id/login_btn
+
+*** Keywords ***

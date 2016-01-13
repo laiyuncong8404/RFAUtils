@@ -1,0 +1,53 @@
+*** Settings ***
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../../utils/PictureLib.py
+Library           ../../utils/NetCheck.py
+Library           ../../utils/LogLib.py
+Library           ../../utils/ElementLib.py
+Library           ../../utils/AppiumServerLib.py
+Library           ../../utils/AdbLib.py
+Library           ../../utils/SerialLib.py
+Resource          ../../Resources/phone_基础关键字.txt
+Resource          ../../Resources/tv_基础关键字.txt
+Resource          ../../Resources/公共基础关键字.txt
+
+*** Keywords ***
+clear_username
+    Clear Text    id=com.iceboxcontrol:id/login_username
+
+input_username
+    [Arguments]    ${userName}
+    Input Text    id=com.iceboxcontrol:id/login_username    ${userName}
+
+clear_password
+    Clear Text    id=com.iceboxcontrol:id/login_password
+
+input_password
+    [Arguments]    ${passWord}
+    Input Text    id=com.iceboxcontrol:id/login_password    ${passWord}
+
+click_loginbtn
+    click button    登 录
+    #click element    id=com.iceboxcontrol:id/login_btn
+
+select_APmode
+    click element    id=com.iceboxcontrol:id/modelselect
+    #${modes}    get elements    class=android.widget.CheckedTextView
+    #log    ${modes}
+    #${APmode} =    Get From List    ${modes}    0
+    #log    ${APmode}
+    click element    class=android.widget.CheckedTextView    #本地模式
+
+select_STAmode
+    click element    id=com.iceboxcontrol:id/modelselect
+    click element    name=远程模式    #远程模式
+
+check_autoLogin
+    ${value}=    get Element Attribute    id=com.iceboxcontrol:id/auto_login    checked
+    RUN Keyword unless    ${value}==False    click element    id=com.iceboxcontrol:id/auto_login
+
+check_rememberPsw
+    ${value}=    get Element Attribute    id=com.iceboxcontrol:id/remember_psw    checked
+    RUN Keyword unless    ${value}==False    click element    id=com.iceboxcontrol:id/remember_psw

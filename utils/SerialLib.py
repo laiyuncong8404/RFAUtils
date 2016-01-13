@@ -146,14 +146,20 @@ class SerialLib():
         try:
             self.excute_command("rm /data/local/tmp/tvdump.xml")
             self.excute_command("uiautomator runtest dumpWindowHierarchy.jar -c dumpWindowHierarchy.dumpWindowHierarchy")
-            time.sleep(2)
+            time.sleep(3)
             if "OK (1 test)" in self.read_ser():
-                print "dump xml ok"
-                self.excute_command("sync")
-                self.excute_command("chmod 777 /data/local/tmp/tvdump.xml")
-                return True
+                self.excute_command("ls /data/local/tmp/tvdump.xml")
+                if "No such file or directory" not in self.read_ser():
+                    
+                    print "dump xml ok"
+                    self.excute_command("sync")
+                    self.excute_command("chmod 777 /data/local/tmp/tvdump.xml")
+                    return True
+                else:
+                    print "dump xml fail"
+                    return False
             else:
-                print  "dump xml fail"
+                print  "excute dumpWindowHierarchy fail"
                 return False   
         finally:
             self.close_ser()

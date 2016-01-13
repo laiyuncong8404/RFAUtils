@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 POWER = 26
 BACK = 4
 HOME = 3
@@ -12,7 +11,3 @@ BACKSPACE = 67
 ENTER = 66
 MOVE_HOME = 122
 MOVE_END = 123
-
-
-
-

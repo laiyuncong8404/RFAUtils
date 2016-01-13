@@ -13,20 +13,50 @@ Library           ../utils/SerialLib.py
 Library           ../utils/NetCheck.py
 
 *** Keywords ***
-启动AppiumServer
+检查配置文件目录是否存在
+    check file weather exists    ${xml_path}    ${log_path}    ${appium_run_log_path}    ${picSpath}    ${picDpath}
+
+AppiumServer_start
     [Arguments]    ${appium_run_log_name}    ${appium_start_timeout}=20
     start appium server    ${appium_run_log_path}    ${appium_run_log_name}    ${appium_status_url}    ${appium_start_timeout}
 
-停止AppiumServer
+AppiumServer_stop
     stop appium server    ${appium_status_url}
 
-启动Logcat
+adb_killServer
+    ${output}=    run    TASKKILL /F \ /IM adb.exe
+    log    kill adb.exe
+    log    ${output}
+
+adb_restartServer
+    restart_adb_server
+
+adb_sendKeyevent
+    [Arguments]    ${key_code}    ${device_name}=
+    send keyevent    ${key_code}    ${device_name}
+
+Logcat_start
     [Arguments]    ${logname}    ${device_name}
     [Documentation]    测试用例执行失败后，开启logcat抓取被测设备运行日志
     start log    ${log_path}    ${logname}    ${device_name}
 
-停止Logcat
+Logcat_stop
     stop log
+
+抓取日志
+    [Arguments]    ${logname}    ${devices_name}=    ${log_time}=15
+    Run Keyword If Test Failed    收集日志    ${logname}    ${devices_name}    ${log_time}
+
+收集日志
+    [Arguments]    ${logname}    ${device_name}    ${log_time}
+    启动Logcat    ${logname}    ${device_name}
+    sleep    ${log_time}
+    停止Logcat
+
+清理日志
+    [Arguments]    ${device_name}=
+    [Documentation]    测试用例执行成功后，通过执行命令adb shell logcat -c清理被测设备运行日志
+    run keyword if test passed    clear log    ${device_name}
 
 打开应用
     [Arguments]    ${pkgname}    ${launcher_activityname}    # 以变量的形式提供被启动应用的包名及入口场景名
@@ -34,10 +64,40 @@ Library           ../utils/NetCheck.py
     #open application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=4.2.2    deviceName=192.168.104.5:5555    appPackage=${pkgname}    appActivity=${launcher_activityname}
     open application    ${appium_base_url}    platformName=${plat_name}    platformVersion=${plat_version}    deviceName=${device_name}    appPackage=${pkgname}    appActivity=${launcher_activityname}
 
+关闭当前应用
+    Close Application
+
+关闭所有打开的应用
+    Close All Applications
+
 获取当前页面代码
     [Documentation]    获取当前页面的源代码，该关键字主要用于动态变化的页面
     ${source}    get source
     [Return]    ${source}
+
+获取当前页面的xml
+    [Arguments]    ${xml_name}    # 生成的xml文件的文件名称
+    ${source}=    获取当前页面代码
+    write to file    ${source}    ${xml_path}    ${xml_name}
+
+获取上下文
+    Get Current Context
+
+获取元素的坐标
+    [Arguments]    ${locator}
+    Get Element Location    ${locator}
+
+获取中心坐标
+    [Arguments]    ${bounds}
+    ${center_bounds}=    get_center_coordinate    ${bounds}
+    log    ${center_bounds}
+    [Return]    ${center_bounds}
+
+获取元素的属性值
+    [Arguments]    ${locator}    ${attribute}
+    ${attribute_value}=    Get Element Attribute    ${locator}    ${attribute}
+    log    ${attribute_value}
+    [Return]    ${attribute_value}
 
 长按键
     [Arguments]    ${keycode}
@@ -51,49 +111,6 @@ Library           ../utils/NetCheck.py
     [Arguments]    ${locator}    ${text}
     input text    ${locator}    ${text}
 
-重启adbserver
-    restart adb server
-
-检查配置文件目录是否存在
-    check file weather exists    ${xml_path}    ${log_path}    ${appium_run_log_path}    ${picSpath}    ${picDpath}
-
-清理日志
-    [Arguments]    ${device_name}=
-    [Documentation]    测试用例执行成功后，通过执行命令adb shell logcat -c清理被测设备运行日志
-    run keyword if test passed    clear log    ${device_name}
-
-当前页面应该包含元素
-    [Arguments]    ${locator}
-    Page Should Contain Element    ${locator}
-
-当前页面应该包含文本信息
-    [Arguments]    ${text_name}
-    Page Should Contain Text    ${text_name}
-
-等待当前页面包含元素
-    [Arguments]    ${locator}    ${time_out}
-    wait until page contains element    ${locator}    ${time_out}
-
-等待当前页面包含文本信息
-    [Arguments]    ${text_name}    ${time_out}
-    wait until page contains    ${text_name}    ${time_out}
-
-等待当前页面不包含元素
-    [Arguments]    ${text_name}    ${time_out}
-    Wait Until Page Does Not Contain    ${text_name}    ${time_out}
-
-等待当前页面不包含文本信息
-    [Arguments]    ${locator}    ${time_out}
-    Wait Until Page Does Not Contain Element    ${locator}    ${time_out}
-
-当前页面不包含元素
-    [Arguments]    ${locator}
-    Page Should Not Contain Element    ${locator}
-
-当前页面不包含文本信息
-    [Arguments]    ${text}
-    Page Should Not Contain Text    ${text}
-
 点击元素
     [Arguments]    ${locator}
     click element    ${locator}
@@ -106,38 +123,9 @@ Library           ../utils/NetCheck.py
     [Arguments]    ${Xpoint}    ${Ypoint}    ${devices_id}=
     touch by xypoint    ${Xpoint}    ${Ypoint}    ${devices_id}
 
-关闭当前应用
-    Close Application
-
-关闭所有打开的应用
-    Close All Applications
-
-元素的名称应该为
-    [Arguments]    ${locator}    ${expect_text_name}
-    Element Name Should Be    ${locator}    ${expect_text_name}
-
-获取上下文
-    Get Current Context
-
-获取元素的坐标
-    [Arguments]    ${locator}
-    Get Element Location    ${locator}
-
-清楚文本信息
+清除文本信息
     [Arguments]    ${locator}
     clear text    ${locator}
-
-收集日志
-    [Arguments]    ${logname}    ${device_name}    ${log_time}
-    启动Logcat    ${logname}    ${device_name}
-    sleep    ${log_time}
-    停止Logcat
-
-获取元素的属性值
-    [Arguments]    ${locator}    ${attribute}
-    ${attribute_value}=    Get Element Attribute    ${locator}    ${attribute}
-    log    ${attribute_value}
-    [Return]    ${attribute_value}
 
 通过id获取元素坐标
     [Arguments]    ${xml_name}    ${node_name}    ${resourceid_name}
@@ -179,12 +167,6 @@ Library           ../utils/NetCheck.py
     ${Y}=    get from list    ${center_bounds}    1
     log    ${Y}
     点击坐标    ${X}    ${Y}    ${device_id}
-
-获取中心坐标
-    [Arguments]    ${bounds}
-    ${center_bounds}=    get_center_coordinate    ${bounds}
-    log    ${center_bounds}
-    [Return]    ${center_bounds}
 
 通过元素名称点击坐标
     [Arguments]    ${xml_name}    ${node_name}    ${text_name}    ${device_id}=
@@ -241,24 +223,42 @@ Library           ../utils/NetCheck.py
     ${re}=    find element by Contentdesc    ${xml_path}    ${xml_name}    ${node_name}    ${contentdesc_name}
     should be true    ${re}
 
-抓取日志
-    [Arguments]    ${logname}    ${devices_name}=    ${log_time}=15
-    Run Keyword If Test Failed    收集日志    ${logname}    ${devices_name}    ${log_time}
-
-获取当前页面的xml
-    [Arguments]    ${xml_name}    # 生成的xml文件的文件名称
-    ${source}=    获取当前页面代码
-    write to file    ${source}    ${xml_path}    ${xml_name}
+元素的名称应该为
+    [Arguments]    ${locator}    ${expect_text_name}
+    Element Name Should Be    ${locator}    ${expect_text_name}
 
 元素应该被选中
     [Arguments]    ${xml_name}    ${node_name}    ${text_name}
     Element Should Be Selected By Text    ${xml_path}    ${xml_name}    ${node_name}    ${text_name}
 
-通过adb发送键值
-    [Arguments]    ${key_code}    ${device_name}=
-    send keyevent    ${key_code}    ${device_name}
+当前页面应该包含元素
+    [Arguments]    ${locator}
+    Page Should Contain Element    ${locator}
 
-杀掉adb进程
-    ${output}=    run    TASKKILL /F \ /IM adb.exe
-    log    kill adb.exe
-    log    ${output}
+当前页面不包含元素
+    [Arguments]    ${locator}
+    Page Should Not Contain Element    ${locator}
+
+当前页面应该包含文本信息
+    [Arguments]    ${text_name}
+    Page Should Contain Text    ${text_name}
+
+当前页面不包含文本信息
+    [Arguments]    ${text}
+    Page Should Not Contain Text    ${text}
+
+等待当前页面包含元素
+    [Arguments]    ${locator}    ${time_out}
+    wait until page contains element    ${locator}    ${time_out}
+
+等待当前页面不包含元素
+    [Arguments]    ${text_name}    ${time_out}
+    Wait Until Page Does Not Contain    ${text_name}    ${time_out}
+
+等待当前页面包含文本信息
+    [Arguments]    ${text_name}    ${time_out}
+    wait until page contains    ${text_name}    ${time_out}
+
+等待当前页面不包含文本信息
+    [Arguments]    ${locator}    ${time_out}
+    Wait Until Page Does Not Contain Element    ${locator}    ${time_out}

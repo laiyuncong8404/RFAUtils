@@ -19,13 +19,13 @@ class ConfigLib():
 
     def _check_file_exists(self,pathname):
         if not os.path.exists(pathname):
-            print 'the %s is not exists,create it'%pathname
+            print 'The "%s" is Not exists,create it now …'% pathname
             try:
                 os.makedirs(pathname)
             except:
                 raise Exception("create file fail, maybe this path is not exists,please check!")
         else:
-            print 'the path %s is exists'%pathname
+            print 'The path of "%s" is exist.' % pathname
         
     def check_file_weather_exists(self,xml_path,log_path,appium_run_log_path,picspath,picdpath):
         self._check_file_exists(xml_path)

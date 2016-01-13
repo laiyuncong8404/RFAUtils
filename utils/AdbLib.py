@@ -67,28 +67,78 @@ class AdbLib():
         else:
             raise Exception("go to shell fail")
 
-    
     def get_devices_status(self,device_id=""):
         """
         get devices status：
         return:offline | bootloader | device | ''
         """
-        return self.excute_adb_command("get-state",device_id).read().strip()
-    
+       	try:
+       		assert self.excute_adb_command("get-state",device_id).read().strip() == "device"
+       	except AssertionError:
+       		raise AssertionError ("Error! no device connected.")
+       	else:
+       		pass
+
     def get_devices_id(self,device_id=""):
         """
         get devices id，return serialNo
         """
-        return self.excute_adb_command("get-serialno",device_id).read().strip()
+        device_list=[]
+        for device in self.excute_adb_command("get-serialno",device_id).readlines():
+            device_list.append(device.strip().split("\t")[0])
+        if len(device_list)>0:
+            for device in device_list:
+                print device
+                if "daemon" not in device and "unknown" not in device:
+                    return device
+                if "unknown" in device:
+                    raise Exception("No device connected error!")
+        else:
+            raise Exception("adb error, need to reatsrt adb server.")
 
     def get_all_connected_devices(self,device_id=""):
         """
         list all connected devices
         """
         device_list=[]
-        for device in self.excute_adb_command("devices",device_id).readlines()[1:]:
+        device_list1=[]
+        for device in self.excute_adb_command("devices",device_id).readlines():
                 device_list.append(device.strip().split("\t")[0])
-        return device_list[:-1]
+        if len(device_list)>0:
+            for device in device_list:
+                print device
+                if "daemon" not in device and "unknown" not in device and "List of devices attached" not in device:
+                    device_list1.append(device)
+                if "unknown" in device:
+                    raise Exception("No device connected error!")
+            return device_list1[:-1]
+        else:
+            raise Exception("adb error, need to reatsrt adb server.")
+
+#新增
+    def get_platformName(self,device_id=""):
+        """
+        "return Android platformName, eg:Android"
+        """
+        platformName = []
+        platformName = self.excute_shell_command("getprop net.bt.name",device_id).read().strip()
+        return platformName
+
+    def get_platformVersion(self,device_id=""):
+        """
+        "return Android PlatformVersion, eg:4.4.4"
+        """
+        AndroidVersion = []
+        AndroidVersion = self.excute_shell_command("getprop ro.build.version.release",device_id).read().strip()
+        return AndroidVersion
+
+    def get_platformLevel(self,device_id=""):
+        """
+        "return Android PlatformLevel, eg:19"
+        """
+        APILevel = []
+        APILevel = self.excute_shell_command("getprop ro.build.version.sdk",device_id).read().strip()
+        return APILevel
     
     def _kill_adb_server(self):
         """
@@ -117,6 +167,7 @@ class AdbLib():
         pattern = re.compile(r"[a-zA-Z0-9\.]+/.[a-zA-Z0-9\.]+")
         out = self.excute_shell_command("dumpsys window w | findstr \/ | findstr name=",device_id).read()
         return pattern.findall(out)[0]
+
     def get_current_packagename(self,device_id=""):
         """
         Gets the package name for the current application
@@ -135,6 +186,7 @@ class AdbLib():
         """
         time = self.excute_shell_command("am start -W %s | findstr TotalTime" %(component),device_id).read().split(": ")[-1]
         return int(time)
+
     def send_keyevent(self,keycode,device_id=""):
         """
         By sending keycode analog buttons
@@ -240,6 +292,7 @@ class AdbLib():
             matApp.append(packages.split(":")[-1].splitlines()[0])
 
         return matApp
+
     def installApp(self, appFile,device_id=""):
         """
         Install app, APP name can not contain Chinese characters
@@ -267,9 +320,9 @@ class AdbLib():
         usage: clearAppData("com.android.contacts")
         """
         if "Success" in self.excute_shell_command("pm clear %s" % packageName,device_id).read().splitlines():
-            return "clear user data success "
+            return True
         else:
-            return "make sure package exist"
+            return False
 
     def resetCurrentApp(self,device_id=""):
         """
@@ -309,16 +362,25 @@ class AdbLib():
 
 
 if __name__ == '__main__':
-    qqapp="com.ktcp.music/.MusicTV"
-    deviceid="P4M0215520004561"
-    deviceid1="192.168.103.109:5555"
-    a=AdbLib()
+    # qqapp="com.ktcp.music/.MusicTV"
+    # deviceid="P4M0215520004561"
+    # deviceid1="192.168.103.109:5555"
+    a = AdbLib()
+    a.get_platformVersion()
+    # a.get_devices_status()
+    # a.get_focused_package_and_activity()
+    # a.get_current_packagename()
+    # a.get_current_activity()
+
+
+
+"""
     for i in range(1):
         print i
         #a.connect_device_by_ip('192.168.103.109')
         #time.sleep(3)
         #a.shell_should_be_open(deviceid1)
-        '''print "*********************************************************************"
+        print "*********************************************************************"
         a.connect_device_by_ip('192.168.103.111')
         print "*********************************************************************"
         print a.get_all_connected_devices()
@@ -377,3 +439,4 @@ if __name__ == '__main__':
         #a.send_broadcast("com.changhong.dmt.system.usb.mounted")
         print a.get_all_connected_devices()
         print "*********************************************************************"
+"""

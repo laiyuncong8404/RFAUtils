@@ -1,0 +1,14 @@
+*** Variables ***
+${right_userName}    13540774227
+${wrong_userName}    13340774227
+${right_passWord}    123456
+${wrong_passWord}    12345
+${new_passWord}    123456
+${old_passWord}    123456
+${short_passWord}    12345
+${new_nickName}    Lucy
+${wrong_fridgeNewPwd}    4008111
+${short_fridgeNewPwd}    4008111
+${new_fridgeNewPwd}    4008111666
+${device_name}    CHiQ_BM09
+${device_sn}      CDTEST400911700407014001

@@ -1,0 +1,14 @@
+*** Settings ***
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../../utils/PictureLib.py
+Library           ../../utils/NetCheck.py
+Library           ../../utils/LogLib.py
+Library           ../../utils/ElementLib.py
+Library           ../../utils/AppiumServerLib.py
+Library           ../../utils/AdbLib.py
+Library           ../../utils/SerialLib.py
+Resource          ../../Resources/phone_基础关键字.txt
+Resource          ../../Resources/tv_基础关键字.txt
+Resource          ../../Resources/公共基础关键字.txt

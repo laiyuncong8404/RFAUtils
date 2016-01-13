@@ -1,0 +1,212 @@
+*** Settings ***
+Library           AppiumLibrary
+Library           Collections
+Library           String
+Library           Dialogs
+
+*** Test Cases ***
+打开app
+    Comment    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'
+    ...    app=${CURDIR}/Tudou_Phone_tudouweb.apk
+    Comment    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'
+    ...    appActivity=com.tudou.ui.activity.WelcomeActivity    appPackage=com.tudou.android
+    Comment    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'
+    ...    browserName=Chrome
+    Comment    Go To Url    http://www.baidu.com
+
+后台app
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    sleep    10s
+    Background App    5
+
+关闭app
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    sleep    10s
+    Close All Applications
+
+删除app
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    Remove Application    com.tudou.android
+
+重置app
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    Pause Execution
+    Reset Application
+
+定位
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    Pause Execution
+    Comment    Click Element    id=com.tudou.android:id/mytudouText
+    Comment    Click Element    name=我的
+    Comment    Click Element    xpath=//android.widget.TextView[contains(@text,'我的')]
+    Comment    Click Element    class=android.widget.TextView
+    Click Element    android=new UiSelector().text("我的")
+    Pause Execution
+    Close All Applications
+
+输入
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Comment    Input Text    id=com.tudou.android:id/login_name    asdasd
+    Comment    Input Text    id=com.tudou.android:id/login_pwd    2312121
+    Comment    Input Value    id=com.tudou.android:id/login_name    34534534sdf
+
+按键
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Comment    Press Keycode    3
+    Comment    Press Keycode    24
+
+清空内容
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Clear Text    id=com.tudou.android:id/login_name
+
+点击按钮
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Click Button    我的
+    Comment    Click Button    确定
+
+点击元素
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Click Element    name=我的
+    Click Element    name=马上登录
+    Click Element    id=com.tudou.android:id/title_right_text
+
+点击坐标
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Click A Point    300    200
+
+tap
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Tap    name=我的
+    Tap    name=马上登录
+    Tap    id=com.tudou.android:id/title_right_text
+
+Landscape
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    browserName=Chrome
+    ...    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Landscape
+
+隐藏键盘
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Hide Keyboard
+
+摇一摇
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Shake
+
+network
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    ${a}    Get Network Connection Status
+    Set Network Connection Status    1
+
+滑动
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Swipe    500    500    100    500    500
+    sleep    2s
+    Swipe    500    500    100    500    500
+
+scroll
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Comment    Scroll    name=牛男网    name=畅所欲言秀
+    Scroll To    id=com.tudou.android:id/channel_subclass
+
+zoom
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.baidu.baidumaps.WelcomeScreen
+    ...    appPackage=com.baidu.BaiduMap    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Pinch    id=com.tudou.android:id/channel_subclass    200%    50
+
+get
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    Comment    Get Element Attribute
+    Comment    Get Element Location
+    Comment    Get Element Size
+    Comment    Get Elements
+    Comment    Get Source
+    Comment    Log Source
+
+should
+    Element Attribute Should Match
+    Element Name Should Be
+    Element Should Be Disabled
+    Element Should Be Enabled
+    Element Value Should Be
+    Page Should Contain Element
+    Page Should Contain Text
+    Page Should Not Contain Element
+    Page Should Not Contain Text
+
+webview
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android    unicodeKeyboard=${True}    resetKeyboard=${True}
+    Pause Execution
+    ${a}    Get Contexts
+    ${b}    Get Current Context
+    Switch To Context    ${a[1]}
+    Log Source
+    Comment    Click Element    xpath=//a[text()='开挂！那些牛逼闪闪的牛人们']
+    Go To Url    http://www.w3school.com.cn/tiy/t.asp?f=jsref_dialog_create
+    Pause Execution
+    Sleep    2s
+    Select Frame    name=i
+    Click Element    //button[text()='试一下']
+    Sleep    2s
+    Unselect Frame
+    Click Element    //input[@value='提交代码']
+    ${url}    Get Element Attribute    xpath=//*[@id="footer"]/p/a    href
+
+webview2
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    Pause Execution
+    ${a}    Get Contexts
+    ${b}    Get Current Context
+    Switch To Context    ${a[1]}
+    Go To Url    http://www.w3school.com.cn/tiy/loadtext.asp?f=html_dropdownbox
+    Pause Execution
+    Wait Until Page Contains Element    name=cars
+    Select From List    name=cars    Fiat
+    Comment    Click Element    name=cars
+    Comment    Switch To Context    ${a[0]}
+    Comment    Click Element    name=Audi
+    Comment    Switch To Context    ${a[1]}
+    Get Element Attribute    图片位置    src
+
+webview3
+    Open Application    http://localhost:4723/wd/hub    alias=tudouapp    platformName=Android    platformVersion=4.4    deviceName='Android Simulator'    appActivity=com.tudou.ui.activity.WelcomeActivity
+    ...    appPackage=com.tudou.android
+    Pause Execution
+    ${contexts}    Get Contexts
+    Switch To Context    ${contexts[1]}
+    Click Element    //a[text()='午夜计程车：北漂少女酒吧求生']

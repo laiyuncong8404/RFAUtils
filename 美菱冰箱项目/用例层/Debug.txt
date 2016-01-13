@@ -1,0 +1,53 @@
+*** Settings ***
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../../utils/PictureLib.py
+Library           ../../utils/NetCheck.py
+Library           ../../utils/LogLib.py
+Library           ../../utils/ElementLib.py
+Library           ../../utils/AppiumServerLib.py
+Library           ../../utils/AdbLib.py
+Library           ../../utils/SerialLib.py
+Resource          ../../Resources/phone_基础关键字.txt
+Resource          ../../Resources/tv_基础关键字.txt
+Resource          ../../Resources/公共基础关键字.txt
+Resource          ../流程层/loginPageMethod.txt
+Resource          ../元素层/loginPageElement.txt
+Resource          ../数据层/testData.txt
+
+*** Test Cases ***
+AppiumServer_start
+    [Setup]
+    AppiumServer_start    AppiumServer.log
+    [Teardown]
+
+check_folder
+    检查配置文件目录是否存在
+
+check device online or not
+    检测设备是否在线
+
+get_devices_id
+    获取手机设备名称    #return ${device_name}
+
+get platform name
+    获取手机系统名称    #return ${platform_name}
+
+get_platform_version
+    获取手机系统版本号    #return ${platform_version}
+
+get appPackageName
+    获取appPackageName    #return ${appPackageName}
+    [Teardown]
+
+get appActivityName
+    获取appActivityName    #return ${appActivityName}
+
+openApplication
+    openApp2    ${CURDIR}/../IceBoxControl_Marvell-MW300_20150921.apk    com.iceboxcontrol    com.iceboxcontrol.activitys.LoginActivity
+
+AppiumServer_stop
+    [Setup]
+    AppiumServer_stop
+    [Teardown]

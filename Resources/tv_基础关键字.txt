@@ -24,7 +24,7 @@ Library           AppiumLibrary
 
 连接电视设备
     #restart adb server
-    杀掉adb进程
+    adb_killServer
     ${re}=    connect device by ip    ${tvip}
     should be true    ${re}
 
@@ -97,7 +97,7 @@ Library           AppiumLibrary
     run keyword if    ${re}    检查电视已退出主场景
 
 检查电视已退出主场景
-    通过adb发送键值    4    ${tv_device_name}
+    adb_sendKeyevent    4    ${tv_device_name}
     sleep    1
     通过Hierarchy获取xml    Launcher.xml
     ${re}=    find element by contentdesc    ${xml_path}    Launcher.xml    node    主页

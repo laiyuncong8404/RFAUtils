@@ -1,3 +1,0 @@
-*** Settings ***
-Suite Setup
-Suite Teardown
