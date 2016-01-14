@@ -45,7 +45,7 @@ Resource          公共基础关键字.txt
 openApp
     [Arguments]    ${appName}
     Open Application    remote_url=${appium_base_url}    platformName=${platform_name}    platformVersion=${platform_version}    deviceName=${device_name}    app=${appName}    unicodeKeyboard=true
-    ...    resetKeyboard=true    noSign=true    autoWebview=true    noReset=false
+    ...    resetKeyboard=true    noSign=true    autoWebview=true    noReset=false    autoLaunch=true
     #openApp    ${CURDIR}/IceBoxControl_Marvell-MW300_20150921.apk
 
 抓取手机端日志

@@ -27,7 +27,7 @@ Test_initialize
     获取手机设备名称    #return ${device_name}
     获取手机系统名称    #return ${platform_name}
     获取手机系统版本号    #return ${platform_version}
-    openApp    ${CURDIR}/../IceBoxControl_Marvell-MW300_20150921.apk
+    openApp    C:\\RFAUtils\\美菱冰箱项目\\IceBoxControl_Marvell-MW300_20150921.apk
     获取appPackageName    #return ${appPackageName}
     获取appActivityName    #return ${appActivityName}
     [Teardown]

@@ -72,12 +72,19 @@ class AdbLib():
         get devices status：
         return:offline | bootloader | device | ''
         """
-       	try:
-       		assert self.excute_adb_command("get-state",device_id).read().strip() == "device"
-       	except AssertionError:
-       		raise AssertionError ("Error! no device connected.")
-       	else:
-       		pass
+       	assert self.excute_adb_command("get-state",device_id).read().strip() == "device", "Error! no device connected."
+
+    # def get_devices_status(self,device_id=""):
+    #     """
+    #     get devices status：
+    #     return:offline | bootloader | device | ''
+    #     """
+    #     try:
+    #         assert self.excute_adb_command("get-state",device_id).read().strip() == "device"
+    #     except AssertionError:
+    #         raise AssertionError ("Error! no device connected.")
+    #     else:
+    #         pass
 
     def get_devices_id(self,device_id=""):
         """
@@ -139,7 +146,7 @@ class AdbLib():
         APILevel = []
         APILevel = self.excute_shell_command("getprop ro.build.version.sdk",device_id).read().strip()
         return APILevel
-    
+#新增   
     def _kill_adb_server(self):
         """
         kill the server if it is running
@@ -365,9 +372,8 @@ if __name__ == '__main__':
     # qqapp="com.ktcp.music/.MusicTV"
     # deviceid="P4M0215520004561"
     # deviceid1="192.168.103.109:5555"
-    a = AdbLib()
-    a.get_platformVersion()
-    # a.get_devices_status()
+	a = AdbLib()
+	a.get_devices_status()
     # a.get_focused_package_and_activity()
     # a.get_current_packagename()
     # a.get_current_activity()
