@@ -1,0 +1,83 @@
+2016-01-20 03:44:43:100 - info: Welcome to Appium v1.4.16 (REV ae6877eff263066b26328d457bd285c0cc62430d)
+2016-01-20 03:44:43:104 - info: Appium REST http interface listener started on 0.0.0.0:4723
+2016-01-20 03:44:43:109 - info: [debug] Non-default server args: {"sessionOverride":true,"noReset":true,"log":"C:/RFAUtils/LogFiles/Log/appium.log","logTimestamp":true}
+2016-01-20 03:44:43:110 - info: Console LogLevel: debug
+2016-01-20 03:44:43:111 - info: File LogLevel: debug
+2016-01-20 03:47:10:256 - info: --> POST /wd/hub/session {"desiredCapabilities":{"app":"C:/RFAUtils/rubyPODemo/selendroid-test-app.apk","platformName":"android","platformVersion":"4.4.4","deviceName":"274b3f06","unicodeKeyboard":"true","resetKeyboard":"true","noReset":"false"}}
+2016-01-20 03:47:10:260 - info: Client User-Agent string: appium/ruby_lib/8.0.0
+2016-01-20 03:47:10:262 - warn: Converting cap unicodeKeyboard from string to boolean. This might cause unexpected behavior.
+2016-01-20 03:47:10:263 - warn: Converting cap resetKeyboard from string to boolean. This might cause unexpected behavior.
+2016-01-20 03:47:10:264 - warn: Converting cap noReset from string to boolean. This might cause unexpected behavior.
+2016-01-20 03:47:10:269 - info: [debug] No appActivity desired capability or server param. Parsing from apk.
+2016-01-20 03:47:10:270 - info: [debug] No appPackage desired capability or server param. Parsing from apk.
+2016-01-20 03:47:10:273 - info: [debug] Using local app from desired caps: C:\RFAUtils\rubyPODemo\selendroid-test-app.apk
+2016-01-20 03:47:10:275 - info: [debug] Creating new appium session b38f1651-dd64-4d0f-8563-f70bf8d002a3
+2016-01-20 03:47:10:277 - info: Starting android appium
+2016-01-20 03:47:10:280 - info: [debug] Getting Java version
+2016-01-20 03:47:10:573 - info: Java version is: 1.8.0_25
+2016-01-20 03:47:10:575 - info: [debug] Checking whether adb is present
+2016-01-20 03:47:10:578 - info: [debug] Using adb from E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe
+2016-01-20 03:47:10:578 - info: [debug] Parsing package and activity from app manifest
+2016-01-20 03:47:10:579 - info: [debug] Checking whether aapt is present
+2016-01-20 03:47:10:582 - info: [debug] Using aapt from E:\adt-bundle-windows-x86-20140702\sdk\build-tools\android-4.4W\aapt.exe
+2016-01-20 03:47:10:582 - info: [debug] Extracting package and launch activity from manifest.
+2016-01-20 03:47:10:585 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\build-tools\android-4.4W\aapt.exe dump badging C:\RFAUtils\rubyPODemo\selendroid-test-app.apk
+2016-01-20 03:47:10:654 - info: [debug] badging package: io.selendroid.testapp
+2016-01-20 03:47:10:654 - info: [debug] badging act: io.selendroid.testapp.HomeScreenActivity
+2016-01-20 03:47:10:655 - info: [debug] Parsed package and activity are: io.selendroid.testapp/io.selendroid.testapp.HomeScreenActivity
+2016-01-20 03:47:10:656 - info: [debug] Using fast reset? true
+2016-01-20 03:47:10:657 - info: [debug] Preparing device for session
+2016-01-20 03:47:10:658 - info: [debug] Checking whether app is actually present
+2016-01-20 03:47:10:659 - info: Retrieving device
+2016-01-20 03:47:10:661 - info: [debug] Trying to find a connected android device
+2016-01-20 03:47:10:662 - info: [debug] Getting connected devices...
+2016-01-20 03:47:10:664 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe devices
+2016-01-20 03:47:10:782 - info: [debug] 0 device(s) connected
+2016-01-20 03:47:10:783 - info: [debug] Could not find devices, restarting adb server...
+2016-01-20 03:47:11:788 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe kill-server
+2016-01-20 03:47:11:933 - info: [debug] Getting connected devices...
+2016-01-20 03:47:11:934 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe devices
+2016-01-20 03:47:16:131 - info: [debug] 0 device(s) connected
+2016-01-20 03:47:16:132 - info: [debug] Could not find devices, restarting adb server...
+2016-01-20 03:47:17:136 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe kill-server
+2016-01-20 03:47:17:294 - info: [debug] Getting connected devices...
+2016-01-20 03:47:17:295 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe devices
+2016-01-20 03:47:21:508 - info: [debug] 0 device(s) connected
+2016-01-20 03:47:21:510 - info: [debug] Could not find devices, restarting adb server...
+2016-01-20 03:47:22:513 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe kill-server
+2016-01-20 03:47:22:656 - info: [debug] Getting connected devices...
+2016-01-20 03:47:22:658 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe devices
+2016-01-20 03:47:26:887 - info: [debug] 0 device(s) connected
+2016-01-20 03:47:26:895 - info: [debug] Could not find devices, restarting adb server...
+2016-01-20 03:47:27:899 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe kill-server
+2016-01-20 03:47:28:032 - info: [debug] Getting connected devices...
+2016-01-20 03:47:28:034 - info: [debug] executing cmd: E:\adt-bundle-windows-x86-20140702\sdk\platform-tools\adb.exe devices
+2016-01-20 03:47:32:253 - info: [debug] 0 device(s) connected
+2016-01-20 03:47:32:258 - info: [debug] Sent shutdown command, waiting for UiAutomator to stop...
+2016-01-20 03:47:39:262 - warn: UiAutomator did not shut down fast enough, calling it gone
+2016-01-20 03:47:39:265 - info: [debug] Cleaning up android objects
+2016-01-20 03:47:39:274 - info: [debug] Cleaning up appium session
+2016-01-20 03:47:39:285 - error: Failed to start an Appium session, err was: Error: Could not find a connected Android device.
+2016-01-20 03:47:39:326 - info: [debug] Error: Could not find a connected Android device.
+    at [object Object].ADB.getDevicesWithRetry (E:\Appium_Script\Appium\node_modules\appium\node_modules\appium-adb\lib\adb.js:606:15)
+    at [object Object].androidCommon.prepareActiveDevice (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:400:12)
+    at [object Object].<anonymous> (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:326:26)
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:607:21
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:246:17
+    at iterate (E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:146:13)
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:157:25
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:248:21
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:612:34
+    at [object Object].androidCommon.ensureDeviceLocale (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:371:45)
+    at [object Object].androidCommon.prepareEmulator (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:364:10)
+    at [object Object].<anonymous> (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:325:26)
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:607:21
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:246:17
+    at iterate (E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:146:13)
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:157:25
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:248:21
+    at E:\Appium_Script\Appium\node_modules\appium\node_modules\async\lib\async.js:612:34
+    at [object Object].<anonymous> (E:\Appium_Script\Appium\node_modules\appium\lib\devices\android\android-common.js:344:9)
+    at FSReqWrap.oncomplete (fs.js:95:15)
+2016-01-20 03:47:39:354 - info: [debug] Responding to client with error: {"status":33,"value":{"message":"A new session could not be created. (Original error: Could not find a connected Android device.)","origValue":"Could not find a connected Android device."},"sessionId":null}
+2016-01-20 03:47:39:442 - info: <-- POST /wd/hub/session 500 29112.901 ms - 206 

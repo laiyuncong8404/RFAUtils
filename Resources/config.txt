@@ -3,7 +3,7 @@ ${appium_base_url}    http://localhost:4723/wd/hub    # appium server的http地�
 ${appium_status_url}    http://localhost:4723/wd/hub/status    # 查询AppiumServer运行的状态
 ${tv_ip_address}    ${EMPTY}
 ${log_path}       C:\\RFAUtils\\LogFiles\\Log\\    # 该目录为保存被测设备运行日志的目录
-${appium_run_log_path}    C:\\RFAUtils\\LogFiles\\Log\\appium_run_log\\    # 该目录用于保存Appium Server的运行日志，以便出错时进行日志分析
+${appium_run_log_path}    C:\\RFAUtils\\LogFiles\\Log\\    # 该目录用于保存Appium Server的运行日志，以便出错时进行日志分析
 ${xml_path}       C:\\RFAUtils\\LogFiles\\Xml\\    # 保存xml文件的路径
 ${picDpath}       C:\\RFAUtils\\LogFiles\\Pic_Dpath\\    # 该目录为保存截图的目录
 ${picSpath}       C:\\RFAUtils\\LogFiles\\Pic_Spath\\    # 该目录为保存原图的目录

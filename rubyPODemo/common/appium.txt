@@ -1,0 +1,14 @@
+[caps]
+app = "C:/RFAUtils/rubyPODemo/selendroid-test-app.apk"
+platformName = "android"
+platformVersion = "4.4.4"
+deviceName = "274b3f06"
+unicodeKeyboard = "true"
+resetKeyboard = "true"
+noReset = "false"
+
+[appium_lib]
+require = ["../Cases/spec/requires.rb"]
+sauce_username = ""
+sauce_access_key = ""
+wait = "10"

@@ -19,7 +19,7 @@ Resource          ../数据层/testData.txt
 *** Test Cases ***
 AppiumServer_start
     [Setup]
-    AppiumServer_start    AppiumServer.log
+    AppiumServer_start
     [Teardown]
 
 check_folder

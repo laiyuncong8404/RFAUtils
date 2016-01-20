@@ -17,7 +17,7 @@ Library           ../utils/NetCheck.py
     check file weather exists    ${xml_path}    ${log_path}    ${appium_run_log_path}    ${picSpath}    ${picDpath}
 
 AppiumServer_start
-    [Arguments]    ${appium_run_log_name}    ${appium_start_timeout}=20
+    [Arguments]    ${appium_run_log_name}=appium.log    ${appium_start_timeout}=20
     start appium server    ${appium_run_log_path}    ${appium_run_log_name}    ${appium_status_url}    ${appium_start_timeout}
 
 AppiumServer_stop

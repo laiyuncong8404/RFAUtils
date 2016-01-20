@@ -10,7 +10,7 @@ require 'rubygems'
 require 'rspec'
 require 'appium_lib'
 require 'net/http'
-require File.join(File.dirname(__FILE__),'..', 'public_method')
+require File.join(File.dirname(__FILE__),'..', '..','public_method')
 
 APP_PATH = 'C:\\RFAUtils\\rubyDemo\\IceBoxControl_Marvell-MW300_20150921.apk'
 
@@ -56,7 +56,7 @@ describe 'iceboxcontrol_CHiQ1U_BM09_AP_mode' do
 		@device_sn = "CDTEST400911700407014001" #CHiQ_1U_BM09		
 	end
 	after(:all) do
-		@driver_quit
+		# @driver_quit
 	end
 
 	context 'after user login as AP mode' do
@@ -76,35 +76,47 @@ describe 'iceboxcontrol_CHiQ1U_BM09_AP_mode' do
 				sleep 3
 			end
 
-			it 'check the login page elements' do
-				expect(@username_textfiled.displayed?).to be true
-				expect(@password_textfiled.displayed?).to be true
-				expect(@login_button.displayed?).to be true
-				expect(@autoLogin_button.displayed?).to be true
-				expect(@rememberPassword_button.displayed?).to be true
-				expect(@forgotPassword_textview.displayed?).to be true
-				expect(@registerId_textview.displayed?).to be true
-			end
-			it 'can not login as STA mode' do
-				if @mode_textview.text == '本地模式'
-					@mode_textview.click
-					modes = find_elements(:class_name, 'android.widget.CheckedTextView')
-					modes[1].click #点击‘远程模式’
-				elsif @mode_textview.text == '远程模式'
+			it 'AP_mode can login with empty username and empty password' do
+				begin
+					login()
+					sleep 5
+					expect(@login_button.displayed?).to be false
+					enter_wkzx_page()
+					sleep 3
+					back_click
+					expect(button('确定').displayed?).to be true
+					alert_click('确定')
+				ensure
+					start_activity app_package: 'com.iceboxcontrol', app_activity: 'com.iceboxcontrol.activitys.LoginActivity'
 				end
-				@login_button.click
-				expect((@mode_textview.text) == '远程模式').to be true
-				expect(@login_button.displayed?).to be true
 			end
-			it 'confirm the work mode is AP' do
-				if @mode_textview.text == '远程模式'
-					@mode_textview.click
-					modes = find_elements(:class_name, 'android.widget.CheckedTextView')
-					modes[0].click #点击‘本地模式’
-				elsif @mode_textview.text == '本地模式'
+			it 'AP_mode can login with empty username and no-empty password' do
+				begin
+					login(nil,@old_password)
+					sleep 5
+					expect(@login_button.displayed?).to be false
+					enter_wkzx_page()
+					sleep 3
+					back_click
+					expect(button('确定').displayed?).to be true
+					alert_click('确定')
+				ensure
+					start_activity app_package: 'com.iceboxcontrol', app_activity: 'com.iceboxcontrol.activitys.LoginActivity'
 				end
-				expect(@login_button.displayed?).to be true
-				expect((@mode_textview.text) == '本地模式').to be true
+			end
+			it 'AP_mode can login with no-empty username and empty password' do
+				begin
+					login(@username,nil)
+					sleep 5
+					expect(@login_button.displayed?).to be false
+					enter_wkzx_page()
+					sleep 3
+					back_click
+					expect(button('确定').displayed?).to be true
+					alert_click('确定')
+				ensure
+					start_activity app_package: 'com.iceboxcontrol', app_activity: 'com.iceboxcontrol.activitys.LoginActivity'
+				end
 			end
 		end #login_page
 	end #after user login as AP mode
