@@ -80,7 +80,7 @@ describe 'iceboxcontrol_CHiQ1U_BM09_AP_mode' do
 				begin
 					login()
 					sleep 5
-					expect(@login_button.displayed?).to be false
+					expect(@login_button.displayed?).to be true
 					enter_wkzx_page()
 					sleep 3
 					back_click
@@ -94,7 +94,7 @@ describe 'iceboxcontrol_CHiQ1U_BM09_AP_mode' do
 				begin
 					login(nil,@old_password)
 					sleep 5
-					expect(@login_button.displayed?).to be false
+					expect(@login_button.displayed?).to be true
 					enter_wkzx_page()
 					sleep 3
 					back_click
@@ -108,7 +108,7 @@ describe 'iceboxcontrol_CHiQ1U_BM09_AP_mode' do
 				begin
 					login(@username,nil)
 					sleep 5
-					expect(@login_button.displayed?).to be false
+					expect(@login_button.displayed?).to be true
 					enter_wkzx_page()
 					sleep 3
 					back_click
