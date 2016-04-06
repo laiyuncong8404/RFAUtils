@@ -1,0 +1,25 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+Resource          ../元素层/03-2loginPageElement.txt
+
+*** Keywords ***
+login
+    [Arguments]    ${userName}=    ${passWord}=
+    clear_username
+    input_username    ${userName}
+    clear_password
+    input_password    ${passWord}
+    click_loginbtn
+
+login_with_remember_psw
+    [Arguments]    ${userName}=None    ${passWord}=None
+    login
+    check_rememberPsw
+
+login_with_autoLogin
+    [Arguments]    ${userName}=None    ${passWord}=None
+    login
+    check_autoLogin

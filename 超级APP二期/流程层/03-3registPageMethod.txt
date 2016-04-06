@@ -1,0 +1,21 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+Resource          ../元素层/03-3registPageElement.txt
+
+*** Keywords ***
+regist
+    [Arguments]    ${registphonenum}=    ${identifying_input}=
+    clear_registphonenum
+    input_registphonenum    ${registphonenum }
+    clear_identifying_input
+    input_identifying_input    ${identifying_input}
+
+findPSWD
+    [Arguments]    ${registphonenum}=    ${identifying_input}=
+    clear_registphonenum
+    input_registphonenum    ${registphonenum }
+    clear_identifying_input
+    input_identifying_input    ${identifying_input}

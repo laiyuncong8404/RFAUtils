@@ -1,0 +1,41 @@
+*** Settings ***
+Library           Selenium2Library
+Library           AutoItLibrary
+
+*** Test Cases ***
+test
+    [Setup]
+    open browser    http://ddmeitu2.meiling.com:8080/shop/index.php?act=seller_login&op=show_login    gc
+    Maximize Browser Window
+    input text    id=seller_name    ddmeitu
+    input password    id=password    123456
+    sleep    1
+    #click button    id=login-submit    #请手动点击登录
+    sleep    5
+    go to    http://ddmeitu2.meiling.com:8080/shop/index.php?act=store_goods_add&op=index    #商品发布页面
+    sleep    3
+    wait until page contains element    xpath=//*[@id="class_div_1"]/ul/li/a
+    click element    xpath=//*[@id="class_div_1"]/ul/li/a    #商品分类选项-分类
+    wait until page contains element    xpath=//*[@id="class_div_2"]/ul/li/a
+    click element    xpath=//*[@id="class_div_2"]/ul/li/a    #商品分类选项-相册
+    wait until page contains element    xpath=//*[@id="class_div_3"]/ul/li/a
+    click element    xpath=//*[@id="class_div_3"]/ul/li/a    #商品分类选项-宝宝成长照
+    wait until page contains element    xpath=//*[@id="mainContent"]/div/div[3]/form/div/label/input
+    execute javascript    var q=document.documentElement.scrollTop=10000
+    sleep    2
+    click button    xpath=//*[@id="mainContent"]/div/div[3]/form/div/label/input    #下一步，填写商品信息
+    sleep    2
+    Wait Until Page Contains element    xpath=//*[@id="goods_form"]/div[2]/label/input    3    #查看是否有下一步，上传商品图片
+    #上传文件
+    click element    id=goods_image    #上传图片
+    #上传文件    id=goods_image    文件上传    D:\\Users\\点滴美图\\图片\\商品图片异常.txt
+    log    going to sleep 15s	#请手动上传文件
+    sleep    15
+    #alert should be present    禁止上传空文件
+    log    going to get alert message
+    ${message}=    get alert message
+    log    ${message}
+    sleep    3
+    Choose OK On Next Confirmation
+    #Wait Until Keyword Succeeds    10    0.5    Alert Should Be Present    该类型文件不允许上传，允许的文件类型为: gif,jpg,jpeg,png
+    [Teardown]

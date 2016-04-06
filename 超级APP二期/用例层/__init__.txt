@@ -1,0 +1,6 @@
+*** Settings ***
+Suite Setup       AppiumServer_start
+Suite Teardown    AppiumServer_stop
+Test Setup
+Test Teardown
+Resource          ../Resources/公共基础关键字.txt

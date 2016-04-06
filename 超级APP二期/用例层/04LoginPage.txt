@@ -1,0 +1,68 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../utils/PictureLib.py
+Library           ../utils/NetCheck.py
+Library           ../utils/LogLib.py
+Library           ../utils/ElementLib.py
+Library           ../utils/AppiumServerLib.py
+Library           ../utils/AdbLib.py
+Library           ../utils/SerialLib.py
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/tv_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+Resource          ../元素层/00defaultPage.txt
+Resource          ../元素层/03-1personalPage.txt
+Resource          ../元素层/03-2loginPageElement.txt
+Resource          ../元素层/03-3registPageElement.txt
+Resource          ../流程层/03-2loginPageMethod.txt
+Resource          ../流程层/03-3registPageMethod.txt
+Resource          ../数据层/testData.txt
+
+*** Test Cases ***
+check the login page elements
+    进入登陆页
+    Page Should Contain Text    登陆我的CHiQ
+    Page Should Contain Text    记住密码
+    Page Should Contain Text    自动登陆
+    Page Should Contain Text    登 陆
+    Page Should Contain Text    30秒注册
+    Page Should Contain Text    忘记密码
+
+login with empty username and empty password should be fail
+    login
+    Sleep    1
+    Page Should Contain Text    登陆我的CHiQ
+
+login with no-empty username and empty password should be fail
+    login    ${right_phoneNum}
+    Sleep    1
+    Page Should Contain Text    登陆我的CHiQ
+
+login with empty username and no-empty password should be fail
+    login    \    ${right_passWord}
+    Sleep    5s
+    Page Should Contain Text    登陆我的CHiQ
+
+login with wrong username and wrong password should be fail
+    login    ${wrong_phoneNum}    ${wrong_passWord}
+    Sleep    1
+    Page Should Contain Text    登陆我的CHiQ
+
+login with wrong username and right password should be fail
+    login    ${wrong_phoneNum}    ${right_passWord}
+    Sleep    1
+    Page Should Contain Text    登陆我的CHiQ
+
+login with right username and wrong password should be fail
+    login    ${right_phoneNum}    ${wrong_passWord}
+    Sleep    1
+    Page Should Contain Text    登陆我的CHiQ
+
+login with right username and right password should be pass
+    login    ${right_phoneNum}    ${right_passWord}
+    Sleep    1
+    Page Should Not Contain Text    登陆我的CHiQ

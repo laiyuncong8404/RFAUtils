@@ -1,0 +1,63 @@
+*** Settings ***
+Library           ../utils/AdbLib.py
+Library           AppiumLibrary
+Resource          config.txt
+Resource          公共基础关键字.txt
+
+*** Keywords ***
+检测设备是否在线
+    [Arguments]    ${device_id}=
+    get_devices_status    ${device_id}
+
+获取手机设备名称
+    [Arguments]    ${device_id}=
+    #adb_killServer
+    ${devicename}    get devices id    ${device_id}
+    set global variable    ${device_name}    ${devicename}
+    log    ${device_name}
+
+获取手机系统名称
+    [Arguments]    ${device_id}=
+    #adb_killServer
+    ${platformName}    get_platformName    ${device_id}
+    set global variable    ${platform_name}    ${platformName}
+    log    ${platform_name}
+
+获取手机系统版本号
+    [Arguments]    ${device_id}=
+    #restart adb server
+    ${platformVersion}    get_platformVersion    ${device_id}
+    set global variable    ${platform_version}    ${platformVersion}
+    log    ${platform_version}
+
+获取appPackageName
+    [Arguments]    ${device_id}=
+    ${appPackage}    get_current_packagename    ${device_id}
+    set global variable    ${appPackageName}    ${appPackage}
+    log    ${appPackageName}
+
+获取appActivityName
+    [Arguments]    ${device_id}=
+    ${appActivity}    get_current_activity    ${device_id}
+    set global variable    ${appActivityName}    ${appActivity}
+    log    ${appActivityName}
+
+openApp
+    [Arguments]    ${appPath}
+    Open Application    remote_url=${appium_base_url}    alias=MyAPP    platformName=${platform_name}    platformVersion=${platform_version}    deviceName=${device_name}    app=${appPath}
+    ...    unicodeKeyboard=true    resetKeyboard=true    noSign=true    autoWebview=false    autoWebviewTimeout=120    noReset=false
+    ...    autoLaunch=true
+    #openApp    ${CURDIR}/IceBoxControl_Marvell-MW300_20150921.apk
+
+openApp2
+    [Arguments]    ${appName}    ${appPackageName}    ${appActivityName}
+    Open Application    remote_url=${appium_base_url}    platformName=${platform_name}    platformVersion=${platform_version}    deviceName=${device_name}    app=${appName}    appPackage=${appPackageName}
+    ...    appActivity=${appActivityName}    unicodeKeyboard=true    resetKeyboard=true    noSign=true    autoWebview=true    noReset=false
+    #openApplication    ${CURDIR}/IceBoxControl_Marvell-MW300_20150921.apk    com.iceboxcontrol    com.iceboxcontrol.activitys.LoginActivity
+
+抓取手机端日志
+    [Arguments]    ${logname}    ${log_time}=15
+    Run Keyword If Test Failed    收集日志    ${logname}    ${phone_device_name}    ${log_time}
+
+清理手机端日志
+    清理日志    ${phone_device_name}

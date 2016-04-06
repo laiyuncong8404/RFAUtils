@@ -21,7 +21,7 @@ Resource          ../数据层/testData.txt
 *** Test Cases ***
 Test_initialize
     [Setup]
-    #AppiumServer_start
+    AppiumServer_start
     检查配置文件目录是否存在
     检测设备是否在线
     获取手机设备名称    #return ${device_name}

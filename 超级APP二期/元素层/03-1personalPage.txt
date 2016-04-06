@@ -1,0 +1,26 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+
+*** Keywords ***
+进入登陆页
+    Click Element    identifier=请登陆
+    sleep    3
+
+进入消息中心页
+    Click Element    identifier=消息中心
+    sleep    3
+
+进入客服中心页
+    Click Element    identifier=客服中心
+    sleep    3
+
+进入产品说明书页
+    Click Element    identifier=产品说明书
+    sleep    3
+
+进入软件更新页
+    Click Element    identifier=软件更新
+    sleep    3

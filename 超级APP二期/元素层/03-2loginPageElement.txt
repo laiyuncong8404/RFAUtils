@@ -1,0 +1,44 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+
+*** Keywords ***
+goBack2PersonalPage
+    click element    id=com.changhong.ssc.cookbook:id/imageView1
+    sleep    2
+
+clear_username
+    Clear Text    id=com.changhong.ssc.cookbook:id/username
+
+input_username
+    [Arguments]    ${userName}
+    Input Text    id=com.changhong.ssc.cookbook:id/username    ${userName}
+
+clear_password
+    Clear Text    id=com.changhong.ssc.cookbook:id/pswd
+
+input_password
+    [Arguments]    ${passWord}
+    Input Text    id=com.changhong.ssc.cookbook:id/pswd    ${passWord}
+
+click_loginbtn
+    click button    登 陆
+    #click element    id=com.changhong.ssc.cookbook:id/login_btn
+
+check_autoLogin
+    ${value}=    get Element Attribute    id=com.changhong.ssc.cookbook:id/autologin    checked
+    RUN Keyword unless    ${value}==False    click element    id=com.changhong.ssc.cookbook:id/autologin
+
+check_rememberPsw
+    ${value}=    get Element Attribute    id=com.changhong.ssc.cookbook:id/showpassword    checked
+    RUN Keyword unless    ${value}==False    click element    id=com.changhong.ssc.cookbook:id/showpassword
+
+进入注册页
+    click element    identifier=30秒注册
+    #click element    id=com.changhong.ssc.cookbook:id/fastRegist
+
+进入忘记密码页
+    click element    identifier=忘记密码
+    #click element    id=com.changhong.ssc.cookbook:id/login_forget_pswd

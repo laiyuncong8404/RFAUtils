@@ -1,11 +1,11 @@
 *** Settings ***
+Library           AppiumLibrary
 Library           ../utils/AdbLib.py
 Library           ../utils/NetCheck.py
 Library           ../utils/SerialLib.py
 Library           ../utils/ElementLib.py
-Resource          config.txt
 Resource          公共基础关键字.txt
-Library           AppiumLibrary
+Resource          config.txt
 
 *** Keywords ***
 获取电视设备名称

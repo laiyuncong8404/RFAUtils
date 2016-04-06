@@ -1,0 +1,93 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../utils/PictureLib.py
+Library           ../utils/NetCheck.py
+Library           ../utils/LogLib.py
+Library           ../utils/ElementLib.py
+Library           ../utils/AppiumServerLib.py
+Library           ../utils/AdbLib.py
+Library           ../utils/SerialLib.py
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+Resource          ../元素层/00defaultPage.txt
+Resource          ../元素层/03-1personalPage.txt
+Resource          ../元素层/03-2loginPageElement.txt
+Resource          ../元素层/03-3registPageElement.txt
+Resource          ../流程层/03-2loginPageMethod.txt
+Resource          ../流程层/03-3registPageMethod.txt
+Resource          ../数据层/testData.txt
+
+*** Test Cases ***
+Test_initialize
+    [Setup]
+    #AppiumServer_start
+    检查配置文件目录是否存在
+    检测设备是否在线
+    获取手机设备名称    #return ${device_name}
+    获取手机系统名称    #return ${platform_name}
+    获取手机系统版本号    #return ${platform_version}
+    openApp    C:\\RFAUtils\\超级APP二期\\SuperAPP_20160405.apk
+    获取appPackageName    #return ${appPackageName}
+    获取appActivityName    #return ${appActivityName}
+    sleep    30
+    [Teardown]
+
+健康生活
+    切换到健康生活页
+    Page Should Contain Text    健康生活
+    Page Should Contain Text    今日推荐
+    Page Should Contain Text    食品管理
+    Page Should Contain Text    智能配菜
+    Page Should Contain Text    我的菜谱
+    Page Should Contain Text    购食汇
+    Page Should Contain Text    菜篮子
+    Click Element    identifier=食品管理
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+    Click Element    identifier=智能配菜
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+    Click Element    identifier=我的菜谱
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+    Click Element    identifier=购食汇
+    Page Should Contain Element    identifier=立即下载
+    Page Should Contain Element    identifier=稍后再说
+    Click Button    稍后再说
+    Click Element    identifier=菜篮子
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+
+个人中心
+    切换到个人中心页
+    Page Should Contain Text    个人中心
+    Page Should Contain Text    消息中心
+    Page Should Contain Text    客服中心
+    Page Should Contain Text    产品说明书
+    Page Should Contain Text    软件更新
+
+消息中心
+    进入消息中心页
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+
+客服中心
+    进入客服中心页
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+
+产品说明书
+    进入产品说明书页
+    Page Should Contain Text    登陆我的CHiQ
+    goBack2PersonalPage
+
+软件更新
+    进入软件更新页
+    Page Should Contain Element    identifier=我知道了
+    Click Button    我知道了
+
+*** Keywords ***

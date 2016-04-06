@@ -1,0 +1,66 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Library           Screenshot
+Library           Collections
+Library           AppiumLibrary
+Library           ../utils/PictureLib.py
+Library           ../utils/NetCheck.py
+Library           ../utils/LogLib.py
+Library           ../utils/ElementLib.py
+Library           ../utils/AppiumServerLib.py
+Library           ../utils/AdbLib.py
+Library           ../utils/SerialLib.py
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/tv_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+Resource          ../元素层/00defaultPage.txt
+Resource          ../元素层/03-1personalPage.txt
+Resource          ../元素层/03-2loginPageElement.txt
+Resource          ../元素层/03-3registPageElement.txt
+Resource          ../流程层/03-2loginPageMethod.txt
+Resource          ../流程层/03-3registPageMethod.txt
+Resource          ../数据层/testData.txt
+
+*** Test Cases ***
+check the regist page elements
+    进入登陆页
+    进入注册页
+    Page Should Contain Element    id=com.changhong.ssc.cookbook:id/registgoback
+    Page Should Contain Text    注册
+    Page Should Contain Element    id=com.changhong.ssc.cookbook:id/registphonenum
+    Page Should Contain Element    id=com.changhong.ssc.cookbook:id/identifying_input
+    Page Should Contain Element    name=获取验证码
+    Page Should Contain Element    name=下一步
+    Element Should Be Disabled    name=获取验证码
+    Element Should Be Disabled    name=下一步
+    Sleep    1
+
+regist with regsited phoneNumber should be fail
+    regist    ${registed_phoneNum}
+    Sleep    1
+    Page Should Contain Text    手机已注册,请登陆
+
+indentifyBtn should be enabled when input unregsited phoneNumber
+    regist    ${unregisted_phoneNum}
+    Sleep    1
+    Element Should Be Enabled    name=获取验证码
+    Element Should Be Disabled    name=下一步
+    Sleep    1
+
+NextBtn should be enabled when input identifyNumber
+    regist    ${unregisted_phoneNum}    ${identify_number}
+    Sleep    1
+    Element Should Be Enabled    name=获取验证码
+    Element Should Be Enabled    name=下一步
+    Sleep    1
+
+serviceRules check
+    click element    name=服务协议
+    Page Should Contain Text    注册协议
+    Swipe    450    1700    550    340    5000
+    Page Should Contain Text    长虹公司
+    press keycode    4    #Back click
+    Close Application
+    Open Application    ${appium_base_url}    alias=SuperAPP    platformName=${platform_name}    deviceName=${device_name}    appPackage=${appPackageName}    appActivity=${appActivityName}
+    sleep    5

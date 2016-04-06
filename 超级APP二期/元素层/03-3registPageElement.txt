@@ -1,0 +1,30 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+
+*** Keywords ***
+goBack2LoginPage
+    click element    id=com.changhong.ssc.cookbook:id/registgoback
+    sleep    2
+
+clear_registphonenum
+    Clear Text    id=com.changhong.ssc.cookbook:id/registphonenum
+
+input_registphonenum
+    [Arguments]    ${registphonenum}
+    Input Text    id=com.changhong.ssc.cookbook:id/registphonenum    ${registphonenum}
+
+clear_identifying_input
+    Clear Text    id=com.changhong.ssc.cookbook:id/identifying_input
+
+input_identifying_input
+    [Arguments]    ${identifying_input}
+    Input Text    id=com.changhong.ssc.cookbook:id/identifying_input    ${identifying_input}
+
+get_identifyingBtn_Attribute
+    ${attribute_value}=    Get Element Attribute    id=com.changhong.ssc.cookbook:id/identifying_btn    enabled
+
+get_nextBtn_Attribute
+    ${attribute_value}=    Get Element Attribute    id=com.changhong.ssc.cookbook:id/next_btn    enabled

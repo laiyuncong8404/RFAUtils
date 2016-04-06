@@ -1,0 +1,18 @@
+*** Settings ***
+Library           Collections
+Library           AppiumLibrary
+Resource          ../Resources/phone_基础关键字.txt
+Resource          ../Resources/公共基础关键字.txt
+
+*** Keywords ***
+切换到设备列表页
+    Click Element    id=com.changhong.ssc.cookbook:id/devices_list
+    sleep    5
+
+切换到健康生活页
+    Click Element    id=com.changhong.ssc.cookbook:id/health_living
+    sleep    5
+
+切换到个人中心页
+    Click Element    id=com.changhong.ssc.cookbook:id/personal_center
+    sleep    5
